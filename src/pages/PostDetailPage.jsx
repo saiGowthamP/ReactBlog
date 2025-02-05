@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import { blogService } from '../services/blogService';
 import Comments from '../components/comments';
 
@@ -8,6 +8,7 @@ const PostDetailPage = () => {
   const [post, setPost] = useState(null);
   const [loading, setLoading] = useState(true);
   const { id } = useParams();
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchPost = async () => {
@@ -27,7 +28,7 @@ const PostDetailPage = () => {
   const handleDelete = async () => {
     try {
       await blogService.deletePost(id);
-      window.location.replace('/');
+      navigate("/");
     } catch (error) {
       console.error("Error deleting post:", error);
     }
@@ -71,7 +72,7 @@ const PostDetailPage = () => {
         </button>
         <button
           className="bg-blue-600 text-white px-4 py-2 rounded"
-          onClick={() => window.location.replace(`/edit/${id}`)}
+          onClick={() => navigate(`/edit/${id}`)}
         >
           Edit
         </button>

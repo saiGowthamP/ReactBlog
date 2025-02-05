@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { blogService } from '../services/blogService';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 
 const UpdatePostPage = () => {
   const { id } = useParams();
@@ -12,6 +12,7 @@ const UpdatePostPage = () => {
   });
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchPost = async () => {
@@ -61,7 +62,7 @@ const UpdatePostPage = () => {
       };
 
       await blogService.updatePost(id, postData);
-      window.location.replace('/');
+      navigate('/');
     } catch (error) {
       console.error("Error updating post:", error);
       setError('Failed to update post. Please try again.');

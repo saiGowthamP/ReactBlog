@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { blogService } from '../services/blogService';
+import { useNavigate } from 'react-router-dom';
 
 const CreatePostPage = () => {
   const [formData, setFormData] = useState({
@@ -10,6 +11,7 @@ const CreatePostPage = () => {
   });
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
+  const navigate = useNavigate();
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -38,7 +40,7 @@ const CreatePostPage = () => {
       };
 
       await blogService.createPost(postData);
-      window.location.replace('/');
+      navigate('/');
     } catch (error) {
       console.error("Error creating post:", error);
       setError('Failed to create post. Please try again.');
