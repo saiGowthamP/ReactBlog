@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { blogService } from '../services/blogService';
-import Placeholder from '../assets/placeholder.jpg';
 
 const BlogList = () => {
   const [posts, setPosts] = useState([]);
@@ -38,8 +37,9 @@ const BlogList = () => {
             className="border rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300 overflow-hidden"
           >
             <div className="aspect-w-16 aspect-h-9 w-full">
+              
               <img
-                src={Placeholder}
+                src={post.imageUrl}
                 alt={post.title}
                 className="w-full h-48 object-cover"
               />

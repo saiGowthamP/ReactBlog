@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { blogService } from '../services/blogService';
 import Comments from '../components/comments';
-import Placeholder from '../assets/placeholder.jpg'
 
 
 const PostDetailPage = () => {
@@ -42,7 +41,7 @@ const PostDetailPage = () => {
       <h1 className="text-4xl font-bold mb-4">{post.title}</h1>
       <div className="aspect-w-16 aspect-h-9 w-full">
         <img
-          src={Placeholder}
+          src={post.imageUrl}
           alt={post.title}
           className="w-full h-48 object-cover"
         />

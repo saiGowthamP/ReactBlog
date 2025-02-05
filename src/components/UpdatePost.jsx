@@ -10,7 +10,7 @@ const UpdatePostPage = () => {
     excerpt: '',
     imageUrl: ''
   });
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
 
   useEffect(() => {
@@ -23,9 +23,11 @@ const UpdatePostPage = () => {
           excerpt: post.excerpt,
           imageUrl: post.imageUrl
         });
+        setLoading(false)
       } catch (error) {
         console.error("Error fetching post:", error);
         setError('Failed to fetch post. Please try again.');
+        setLoading(false)
       }
     };
 
@@ -66,6 +68,8 @@ const UpdatePostPage = () => {
       setLoading(false);
     }
   };
+
+  if (loading) return <div>Loading...</div>;
 
   return (
     <div className="container mx-auto mt-8 px-4 max-w-2xl">
