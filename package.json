@@ -2,7 +2,7 @@
   "name": "reactblogapp",
   "private": true,
   "version": "0.0.0",
-  "homepage": "https://saiGowthamP.github.io/ReactBlog/",
+  "homepage": "https://saiGowthamP.github.io/",
   "type": "module",
   "scripts": {
     "dev": "vite",
