@@ -1,7 +1,9 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { blogService } from '../services/blogService';
+import { useParams } from 'react-router-dom';
 
-const CreatePostPage = () => {
+const UpdatePostPage = () => {
+  const { id } = useParams();
   const [formData, setFormData] = useState({
     title: '',
     content: '',
@@ -10,6 +12,25 @@ const CreatePostPage = () => {
   });
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
+
+  useEffect(() => {
+    const fetchPost = async () => {
+      try {
+        const post = await blogService.getPostById(id);
+        setFormData({
+          title: post.title,
+          content: post.content,
+          excerpt: post.excerpt,
+          imageUrl: post.imageUrl
+        });
+      } catch (error) {
+        console.error("Error fetching post:", error);
+        setError('Failed to fetch post. Please try again.');
+      }
+    };
+
+    fetchPost();
+  }, [id]);
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -37,18 +58,18 @@ const CreatePostPage = () => {
         excerpt: formData.excerpt.trim() || formData.content.slice(0, 150) + '...'
       };
 
-      await blogService.createPost(postData);
+      await blogService.updatePost(id, postData);
       window.location.replace('/');
     } catch (error) {
-      console.error("Error creating post:", error);
-      setError('Failed to create post. Please try again.');
+      console.error("Error updating post:", error);
+      setError('Failed to update post. Please try again.');
       setLoading(false);
     }
   };
 
   return (
     <div className="container mx-auto mt-8 px-4 max-w-2xl">
-      <h1 className="text-3xl font-bold mb-6">Create New Post</h1>
+      <h1 className="text-3xl font-bold mb-6">Update Post</h1>
 
       {error && (
         <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded mb-4">
@@ -127,7 +148,7 @@ const CreatePostPage = () => {
                 : 'bg-blue-600 hover:bg-blue-700'
               }`}
           >
-            {loading ? 'Creating...' : 'Create Post'}
+            {loading ? 'Updating...' : 'Update Post'}
           </button>
         </div>
       </form>
@@ -135,4 +156,4 @@ const CreatePostPage = () => {
   );
 };
 
-export default CreatePostPage;
+export default UpdatePostPage;

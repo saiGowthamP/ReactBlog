@@ -1,10 +1,13 @@
 import { initializeApp } from 'firebase/app';
 import { getFirestore } from 'firebase/firestore';
+const APIKEY = import.meta.env.VITE_APIKEY;
+const AUTHDOMAIN = import.meta.env.VITE_AUTHDOMAIN;
+const PROJECTID = import.meta.env.VITE_PROJECTID;
 
 const firebaseConfig = {
-  apiKey: "AIzaSyDjtRV9mI-AEXjhkf8D5XQrIobzXf0oRTM",
-  authDomain: "blogapp-a7e55.firebaseapp.com",
-  projectId: "blogapp-a7e55"
+  apiKey: APIKEY,
+  authDomain: AUTHDOMAIN,
+  projectId: PROJECTID
 };
 
 const app = initializeApp(firebaseConfig);
